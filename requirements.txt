@@ -1,0 +1,10 @@
+Bio==1.8.4
+biopython==1.85
+joblib==1.5.1
+numpy==2.5.2
+pandas==3.0.5
+scikit_learn==1.9.0
+torch==2.8.0
+torch==2.5.1
+tqdm==4.67.1
+transformers==4.32.1
