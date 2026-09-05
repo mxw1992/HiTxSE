@@ -2,5 +2,46 @@
 HiTxSE is a two-stage hierarchical computational framework designed for genome-scale identification and classification of bacterial secretion system effector proteins. The first stage consists of TxSVM, which distinguishes TxSEs from non-TxSE proteins, whereas the second stage consists of TxMTL, which further assigns the identified TxSEs to individual effector categories.
 <div align=center><img src="https://github.com/mxw1992/HiTxSE/blob/main/image/Figure%201.jpg" width="80%"></div>
 
+## Set up
+The project is implemented with python (3.10.14), the following library packages are required:
+```
+Bio==1.8.4
+biopython==1.85
+joblib==1.5.1
+numpy==2.5.2
+pandas==3.0.5
+scikit_learn==1.9.0
+torch==2.8.0
+torch==2.5.1
+tqdm==4.67.1
+transformers==4.32.1
+```
+While we have not tested with other versions, any reasonably recent versions of these requirements should work. You can create new environment and install all required packages with:
+```
+pip install -r requirements.txt
+```
+## TxSVM
+### Train model
+You can train the TxSVM model by running ```train.py```.
+```
+cd ./TxSVM
+python train_svm.py
+```
+### Prediction
+You can predict your interested ptotein,  here we give an example of TxSE prediction:
+```
+cd ./TxSVM
+```
+Then running ```extract_unknown_prott5_embedding.py``` to extract the Prot_t5_xl_uniref50 embeddings for each protein sequence in the fasta file and running ```prott5_pt_to_csv.py``` to transform the protein embeddings file (.pt) to the input file (.csv).
+```
+python extract_unknown_prott5_embedding.py  --fasta ./test.fasta --output ./test.pt
+python prott5_pt_to_csv.py --input_pt ./test.pt --output_csv ./test.csv
+```
+Finally, running ```predict_svm.py``` for prediction.
+```
+python predict_svm.py --test_csv ./test.csv --output_csv ./test_protein_prediction.csv --model_path ./svm_prott5_model.pkl
+```
+
+
 
 
