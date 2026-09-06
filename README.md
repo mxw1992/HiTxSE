@@ -53,7 +53,7 @@ MKNFEVIRKDFLQSIEIYINHPYKSHFLSIHHRHRDTGIRRAALLKDYILHCPNLTIMNQLIKHYLERSQELEEVLLNLK
 
 ```python fasta_to_csv.py -i ./test_set.fasta -o ./test_set.csv```
 ### Train model
-You can train the TxMTL model by running ```ESM2_ft_training.py```, then evaluate on test set by running ```ESM2_test_set_eval.py```.
+You can train the TxMTL model by running```ESM2_ft_training.py```, then evaluate on test set by running```ESM2_test_set_eval.py```.
 ```
 cd ./TxMTL/train
 python train.py --train_dir ./training_set.csv --val_dir ./validation_set.csv --result_dir ./results/results.csv --checkpoint_path ./checkpoints/best_multitask_model.pt --batch-size 4 --frozen_layers 24 --lr 3e-5 --weight_decay 0.01 --epochs 20 --patience 5
@@ -70,14 +70,22 @@ Parameters:
 - ```--epochs``` number of training epoch.
 - ```--patience``` patience for early stopping used in training.
 ```
-python ESM2_test_set_eval.py --test_dir test_set.csv --result_dir ./results/test-results.csv --checkpoint_path ./checkpoints/best_multitask_model.pt 
+python ESM2_test_set_eval.py --test_dir ./test_set.csv --result_dir ./results/test-results.csv --checkpoint_path ./checkpoints/best_multitask_model.pt 
 ```
 Parameters:
 - ```--checkpoint_path``` directory that stores the model weights file.
 - ```--test_dir``` path to the input test set file.
 - ```--result_dir``` directory that stores the evaluation results on test set.
-  
-
+### Prediction
+You can predict your interested ptotein, here we give an example of TxSE classification:
+```
+cd ./TxMTL/prediction
+python prediction.py --test_dir ./test.fasta --result_dir ./results/test_predictions.csv --checkpoint_path ./checkpoints/best_multitask_model.pt 
+```
+Parameters:
+- ```--test_dir``` path to the input protein FASTA file.
+- ```--result_dir``` directory that stores prediction outputs (CSV table).
+- ```--checkpoint_path``` path to the model weights (download from [here](https://drive.google.com/drive/folders/1dPDHxY7ga4JVDC6R4OdPueeYdQjR_Peg)).
 ## Contact
 Please contact Xianwei Mo at 13580342797@163.com for questions.
 
